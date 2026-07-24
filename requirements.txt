@@ -1,1 +1,6 @@
 pypdf
+sentence-transformers
+chromadb
+sarvamai
+python-dotenv
+tavily-python

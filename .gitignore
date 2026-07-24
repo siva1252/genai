@@ -1,0 +1,6 @@
+env/
+vectordb/
+uploads/
+.env
+__pycache__/
+*.pyc
