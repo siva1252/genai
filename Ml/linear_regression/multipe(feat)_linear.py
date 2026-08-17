@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error,root_mean_squared_error,r2_score,mean_absolute_error
 
-df = pd.read_csv('data/multiple_linear_regression_students.csv')
+df = pd.read_csv('../data/multiple_linear_regression_students.csv')
 
 x=df[['Study_Hours','Previous_Marks','Attendance_Percent']]
 y=df['Final_Marks']

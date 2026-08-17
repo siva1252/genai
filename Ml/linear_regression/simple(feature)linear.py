@@ -4,7 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error,root_mean_squared_error,r2_score,mean_absolute_error
 
 
-df = pd.read_csv('data/simple_linear_regression_students.csv')
+df = pd.read_csv('../data/simple_linear_regression_students.csv')
 
 # print(df)
 # print(df.head())
@@ -35,6 +35,7 @@ model.fit(x_train,y_train)
 
 y_pred = model.predict(x_test)
 print("predicted marks",y_pred)
+
 mse = mean_squared_error(y_test,y_pred)
 rmse = root_mean_squared_error(y_test,y_pred)
 r2 = r2_score(y_test,y_pred)
@@ -110,9 +111,10 @@ print("Mean Absolute Error: ",mae)
 #formula
  #we find this intercept and coefficient by using the formula
       #model.fit 
-      #Error = Actual Label - Predicted Label
+   
 
-#label=intercept+coefficient*feature
+#prediction label=intercept+coefficient*feature
+  #Error = Actual Label - Predicted Label
 
 
 
@@ -189,3 +191,10 @@ R²
 #that minimize
         #↓
 #Σ(Actual - Predicted)²
+
+
+#β = (XᵀX)⁻¹Xᵀy   Ordinary Least Squares (OLS).  Σ(Actual - Predicted)²
+#β is the vector of coefficients
+#X is the matrix of features
+#y is the vector of labels
+#this is multi-variable linear regression
