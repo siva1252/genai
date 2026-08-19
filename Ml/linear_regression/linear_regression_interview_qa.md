@@ -2,6 +2,11 @@
 
 Interview-ready notes covering **concepts + why + how + formulas + practical usage**.
 
+
+Linear Regression
+→ Find coefficients/intercept
+→ Minimize squared prediction error
+
 ---
 
 ## Q1. What is Linear Regression?
@@ -51,6 +56,10 @@ Use it when:
 ```
 
 ---
+in overfiitng we are use thsi things 
+Linear Regression
+→ Regularization
+→ Ridge / Lasso / Elastic Net
 
 ## Q4. What is Simple Linear Regression?
 
@@ -523,3 +532,51 @@ MAE, MSE and RMSE are lower-is-better; R² is generally higher-is-better.
 
 **How do you select the best regression model?**  
 Evaluate candidate models on unseen data using appropriate metrics and select the model that best satisfies both the evaluation results and the business objective.
+
+
+
+
+1. Business problem
+        ↓
+2. Dataset
+        ↓
+3. Identify Features (X) and Label (y)
+        ↓
+4. Since label is numeric
+        ↓
+   Supervised Learning
+        ↓
+   Regression
+        ↓
+5. Split dataset
+        ↓
+   X_train, X_test
+   y_train, y_test
+        ↓
+6. Choose a regression algorithm
+   Example: Linear Regression
+        ↓
+7. model.fit(X_train, y_train)
+        ↓
+   Model learns from TRAINING data
+        ↓
+   Learns coefficients/intercept
+        ↓
+8. model.predict(X_test)
+        ↓
+   Get predicted values
+        ↓
+9. Compare:
+   y_test vs y_pred
+        ↓
+10. Evaluation metrics
+    MAE
+    MSE
+    RMSE
+    R²
+        ↓
+11. Try other suitable regression algorithms
+        ↓
+12. Compare their test performance
+        ↓
+13. Select the model that fits the problem best
