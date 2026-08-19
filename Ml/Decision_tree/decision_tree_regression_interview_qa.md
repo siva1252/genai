@@ -356,6 +356,30 @@ max_depth          → How deep the tree can go
 min_samples_split  → How many samples are needed to split
 min_samples_leaf   → How many samples must stay in each leaf
 
+
+2. max_depth
+
+Definition: Maximum depth each Decision Tree can grow.
+Example: max_depth=5 → each tree can grow up to depth 5.
+
+3. min_samples_split
+
+Definition: Minimum number of samples required in a node before it can split.
+Example: min_samples_split=5 → a node needs at least 5 samples to split.
+
+4. min_samples_leaf
+
+Definition: Minimum number of samples that must remain in each leaf after a split.
+Example: min_samples_leaf=3 → both resulting leaves must have at least 3 samples.
+
+5. max_features
+
+Definition: Number of features considered when finding a split at each node.
+Example: max_features=3 → if there are 6 features, 3 are considered at that split.
+
+
+
+
 Then the remaining nodes become **leaf nodes**.
 
 Without stopping rules, the tree can keep splitting until each leaf has very few samples and overfit.
