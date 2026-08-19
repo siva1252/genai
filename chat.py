@@ -3,7 +3,7 @@ import sys
 
 from dotenv import load_dotenv
 
-from llm import generate_answer
+from llm import generate_answer, generate_chat_reply
 from router import choose_mode, get_current_time_context
 from search import is_doc_relevant, search_chunks
 from web_search import web_search
@@ -22,8 +22,8 @@ def chat():
         return
 
     print("Smart Q&A (type 'exit' or 'quit' to stop)")
-    print("  Just ask normally — LLM auto-routes DOC / WEB / TIME")
-    print("  Optional force:  web: question   or   doc: question\n")
+    print("  Just ask normally — auto-routes CHAT / DOC / WEB / TIME")
+    print("  Optional force:  web: question   or   doc: question   or   chat: question\n")
 
     while True:
         user_input = input("You: ").strip()
@@ -47,6 +47,10 @@ def chat():
                 question = user_input[4:].strip()
                 mode = "DOC"
                 forced = True
+            elif lower.startswith("chat:"):
+                question = user_input[5:].strip()
+                mode = "CHAT"
+                forced = True
             else:
                 question = user_input
                 print("(Routing...)")
@@ -54,6 +58,12 @@ def chat():
 
             if not question:
                 print("\nPlease type a question.\n")
+                continue
+
+            if mode == "CHAT":
+                print("(Using CHAT...)")
+                answer = generate_chat_reply(question)
+                print(f"\n[CHAT] Answer: {answer}\n")
                 continue
 
             # DOC path with relevance check (no keyword hints)

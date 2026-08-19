@@ -2,9 +2,10 @@ from pypdf import PdfReader
 
 PDF_PATH = "uploads/PMS_Project_Documentation.pdf"
 CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200
 
 
-def get_chunks(pdf_path=PDF_PATH, chunk_size=CHUNK_SIZE):
+def get_chunks(pdf_path=PDF_PATH, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
     reader = PdfReader(pdf_path)
     text = ""
 
@@ -13,9 +14,17 @@ def get_chunks(pdf_path=PDF_PATH, chunk_size=CHUNK_SIZE):
         if page_text:
             text += page_text + "\n"
 
+    if overlap >= chunk_size:
+        raise ValueError("overlap must be smaller than chunk_size")
+
+    step = chunk_size - overlap
     chunks = []
-    for i in range(0, len(text), chunk_size):
-        chunks.append(text[i:i + chunk_size])
+    for i in range(0, len(text), step):
+        chunk = text[i:i + chunk_size]
+        if chunk.strip():
+            chunks.append(chunk)
+        if i + chunk_size >= len(text):
+            break
 
     return chunks, text, len(reader.pages)
 
@@ -25,9 +34,13 @@ if __name__ == "__main__":
 
     print(f"Total Pages: {page_count}")
     print(f"Total Characters: {len(text)}")
-    print(text[:1000])
     print(f"Total Chunks: {len(chunks)}")
+    print(f"Overlap: {CHUNK_OVERLAP}")
 
     if chunks:
-        print(f"First Chunk: {chunks[0]}")
-        print(f"Last Chunk: {chunks[-1]}")
+        print("\n--- CHUNK BOUNDARIES (with overlap) ---")
+        for i in range(min(8, len(chunks) - 1)):
+            print(f"\n=== end of chunk {i} ===")
+            print(chunks[i][-120:])
+            print(f"=== start of chunk {i+1} ===")
+            print(chunks[i+1][:120])

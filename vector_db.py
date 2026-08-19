@@ -43,3 +43,8 @@ def store_chunks(force=False):
 
 if __name__ == "__main__":
     store_chunks()
+
+    collection = get_collection()
+
+    print(collection.get())
+    print("Collection Metadata:", collection.metadata)
