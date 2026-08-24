@@ -7,7 +7,7 @@
 
 🔜 3. Advanced RAG
    ├── Chunking
-   ├── Chunk Overlap       ← START HERE
+   ├── Chunk Overlap       ← START HERE   
    ├── Metadata
    ├── Similarity Metrics    ---cosine metrics, euclidean distance,dot product find threshold
    ├── Top-K

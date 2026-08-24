@@ -5,14 +5,15 @@ from dotenv import load_dotenv
 
 from llm import generate_answer, generate_chat_reply
 from router import choose_mode, get_current_time_context
-from search import is_doc_relevant, search_chunks
+from search import hybrid_search, is_doc_relevant
 from web_search import web_search
 
 load_dotenv()
 
 
 def get_doc_context(question):
-    context, distance = search_chunks(question, n_results=5)
+    # Hybrid: semantic (Chroma) + keyword (BM25) fused with RRF
+    context, distance = hybrid_search(question, n_results=5)
     return context, distance
 
 
@@ -66,9 +67,9 @@ def chat():
                 print(f"\n[CHAT] Answer: {answer}\n")
                 continue
 
-            # DOC path with relevance check (no keyword hints)
+            # DOC path: hybrid retrieval + relevance check
             if mode == "DOC":
-                print("(Using DOC...)")
+                print("(Using DOC / hybrid search...)")
                 context, distance = get_doc_context(question)
 
                 # If PDF is not similar enough, and not forced, use WEB
