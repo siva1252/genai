@@ -1,7 +1,7 @@
 # KNN Regression — Interview Q&A
 
 Interview-ready notes covering **basic concept → calculation → code → scaling → hyperparameters → evaluation → interview answers**.
-
+euclidean this one checks nearest value
 ---
 
 ## Q1. What is KNN Regression?

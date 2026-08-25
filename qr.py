@@ -1,12 +1,19 @@
 #qr generation using python
 
 
-import qrcode
+# import qrcode
 
-data=input("enter the data to generate qr code:")
+# data=input("enter the data to generate qr code:")
 
-qr=qrcode.make(data)
-qr.save("qr.png")
-qr.show()
+# qr=qrcode.make(data)
+# qr.save("qr.png")
+# qr.show()
 
-print("qr code generated successfully")
+# print("qr code generated successfully")
+
+
+n=5
+for i in range(n):
+    for j in range():
+        print("*", end=" ")
+    print()

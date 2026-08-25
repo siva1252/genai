@@ -7,6 +7,9 @@ Decision Tree
 Random Forest
 → multiple Decision Trees + averaging
 
+Knn model 
+-- finding the `K` nearest training samples and averaging their target values
+
 #in code we write this things in from sklearn
 linear_model
 → Linear-based algorithms
