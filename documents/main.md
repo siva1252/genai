@@ -128,3 +128,11 @@ Hallucination
 
 "Hallucination is when the LLM produces unsupported or fabricated information. RAG, better retrieval, grounded prompts and evaluation can reduce the risk, but they don't guarantee zero hallucinations."
 
+RAG Evaluation
+→ checks retrieval + context + answer quality
+
+Grounding
+→ ❌ Answer contains a claim not supported by context
+
+Hallucination
+→ ✅ "5-node cluster" is an unsupported generated claim
