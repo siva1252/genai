@@ -22,11 +22,11 @@ from sklearn.metrics import (
 DATASET = "multiple"   # "simple" or "multiple"
 
 if DATASET == "simple":
-    df = pd.read_csv("data/simple_linear_regression_students.csv")
+    df = pd.read_csv("../data/simple_linear_regression_students.csv")
     X = df[["Study_Hours"]]
     y = df["Marks"]
 else:
-    df = pd.read_csv("data/multiple_linear_regression_students.csv")
+    df = pd.read_csv("../data/multiple_linear_regression_students.csv")
     X = df[["Study_Hours", "Previous_Marks", "Attendance_Percent"]]
     y = df["Final_Marks"]
 
