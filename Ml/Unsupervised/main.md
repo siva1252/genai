@@ -108,3 +108,29 @@ Understand customer segments
    Compact groups   Hierarchy?   Dense + noise?
         ↓              ↓              ↓
     K-Means        Hierarchical     DBSCAN
+
+
+K-Means
+→ Centroid
+→ Clusters
+→ model.predict() ✅
+
+Hierarchical
+→ Distance + merging
+→ Hierarchy/Dendrogram
+→ model.predict() ❌
+
+DBSCAN
+→ Density
+→ Clusters + Noise
+→ model.predict() ❌    
+
+
+K-Means
+→ "Where does this new customer belong?"
+
+Hierarchical
+→ "How are these customers/groups related?"
+
+DBSCAN
+→ "Where are the dense groups, and which points are unusual?"
