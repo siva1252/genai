@@ -1,0 +1,52 @@
+| Item                       | Required now?                   |
+| -------------------------- | ------------------------------- |
+| Google Cloud Project       | ✅                               |
+| Gmail API                  | ✅                               |
+| Google OAuth Client ID     | ✅                               |
+| Google OAuth Client Secret | ✅                               |
+| Gmail Refresh Token        | ✅                               |
+| n8n local                  | ✅                               |
+| n8n Gmail OAuth connection | ✅                               |
+| Mistral API key            | ✅                               |
+| Groq API key               | ✅                               |
+| Cerebras API key           | ✅                               |
+| Ollama                     | Later, from your laptop         |
+| Ollama model               | Later                           |
+| SQLite                     | Automatic                       |
+| PostgreSQL                 | ❌ Later                         |
+| RAG documents              | We create after research        |
+| Vector DB                  | We decide during RAG design     |
+| Embedding model            | We decide during RAG design     |
+| Flask                      | ❌ Not required                  |
+| OpenAI API key             | ❌ Not required for current plan |
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+python coding things 
+
+DAY 1
+Python Fundamentals + Strings
+
+DAY 2
+Conditions + Decision Making
+
+DAY 3
+Loops + Number Logic
+
+DAY 4
+Lists + Tuples + Sets
+
+DAY 5
+Dictionaries + Functions
+
+DAY 6
+Combined Problem Solving
+
+DAY 7
+DSA-style + Real-world Problems + Revision
