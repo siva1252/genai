@@ -1,0 +1,280 @@
+Hugging face
+Langchain/langgraph
+tools /function calling
+agents 
+
+-------
+
+
+
+stylex
+
+
+
+
+
+
+
+
+C:\Users\VivekNookala\Desktop\test>python try_mlverdict.py
+DecisionStatus.DECIDED
+{'model': 'Extra Trees', 'status': 'DECIDED', 'primary_metric': 'pr_auc', 'validation_score': 0.426731179625153, 'final_test_score': 0.6467276975897666, 'latency_ms': 16.037100000175997, 'stability': 0.7772694617318318, 'reasons': ['Selected Extra Trees after hard-constraint filtering and multi-criteria ranking.', "Primary metric 'pr_auc' validation score=0.4267.", 'Stability=0.777, generalization=0.877, latency=16.04ms, complexity=medium.', 'Composite evidence score=0.9031 (ranking aid, not a published accuracy).']}
+                  model   primary  stability  generalization  latency_ms complexity  passes_constraints  composite
+0           Extra Trees  0.426731   0.777269        0.876696     16.0371     medium                True   0.903149
+1   Logistic Regression  0.392685   0.805427        0.923724      5.2348        low                True   0.785792
+2         Random Forest  0.364519   0.793049        0.611441     16.5359     medium                True   0.587189
+3  HistGradientBoosting  0.326759   0.852614        0.599408     14.3864       high                True   0.415667
+# MLVerdict Report
+
+## Executive summary
+- MLVerdict status: **DECIDED**.
+- Selected model: **Extra Trees**.
+- Primary metric **pr_auc** validation score: **0.4267**.
+- Untouched final-test {'accuracy': 0.8, 'precision': 0.0, 'recall': 0.0, 'f1': 0.0, 'balanced_accuracy': 0.5, 'roc_auc': 0.84375, 'pr_auc': 0.6467276975897666, 'log_loss': 0.4427198063321553}.
+- Production readiness: **passed**.
+
+## Dataset DNA
+- rows=320, features=8, scale=small
+- target=churn kind=categorical cardinality=2
+- imbalance_ratio=4.079365079365079 missingness=none
+- iid=likely entity_hint=None time_hint=None
+- potential_ids=['customer_id']
+- high_cardinality=[]
+
+## Problem
+- type=binary_classification
+- confidence=high status=DECIDED override=False
+- target_dtype=int64
+- target_cardinality=2
+- unique_ratio=0.0063
+- imbalance_ratio=4.079
+- exactly two unique target values
+
+## Data quality
+- HIGH_RISK [potential_identifier] customer_id: Column 'customer_id' looks like an identifier. (unique_ratio=1.0000 n_unique=320)
+
+## Leakage signals
+_These are leakage *signals*, not a guarantee that the dataset is leakage-free._
+
+- HIGH_RISK [id_leakage] customer_id: 'customer_id' may leak identity rather than a generalizable pattern.
+- INFO [preprocessing_leakage_risk] -: Any transform fitted on the full dataset (or the final test) is a leakage path.
+
+## Validation
+- strategy=stratified_kfold splits=5
+- group_col=None time_col=None
+- scale=small
+- iid=likely
+- imbalance_ratio=4.079365079365079
+- problem=binary_classification
+- classification + no confirmed group/time
+- imbalanced=True
+
+## Metrics
+- primary=pr_auc (user_override=False)
+- secondary=['accuracy', 'f1', 'precision', 'recall', 'roc_auc', 'log_loss', 'pr_auc']
+- problem=binary_classification
+- imbalance_ratio=4.079365079365079
+- target_kind=categorical
+- imbalanced binary → pr_auc (accuracy would be misleading)
+
+## Candidates
+- Included: Logistic Regression
+- Included: Random Forest
+- Included: Extra Trees
+- Included: HistGradientBoosting
+- Excluded: Ridge: not applicable to classification
+- Excluded: XGBoost: library not installed
+- Excluded: LightGBM: library not installed
+- Excluded: CatBoost: library not installed
+
+## Experiments and HPO
+- Random Forest (baseline): mean=0.3645 std=0.0770 latency=16.54ms status=success
+- HistGradientBoosting (baseline): mean=0.3268 std=0.0461 latency=14.39ms status=success
+- Logistic Regression (HPO): mean=0.3927 std=0.0706 latency=5.23ms status=success
+- Extra Trees (HPO): mean=0.4267 std=0.0912 latency=16.04ms status=success
+
+## Evaluation (performance + stability + constraints)
+- Random Forest: primary=0.3645 stability=0.793 gap_score=0.611 latency=16.54ms constraints=pass composite=0.5872
+- HistGradientBoosting: primary=0.3268 stability=0.853 gap_score=0.599 latency=14.39ms constraints=pass composite=0.4157
+- Logistic Regression: primary=0.3927 stability=0.805 gap_score=0.924 latency=5.23ms constraints=pass composite=0.7858
+- Extra Trees: primary=0.4267 stability=0.777 gap_score=0.877 latency=16.04ms constraints=pass composite=0.9031
+
+## Selected model
+- Selected Extra Trees after hard-constraint filtering and multi-criteria ranking.
+- Primary metric 'pr_auc' validation score=0.4267.
+- Stability=0.777, generalization=0.877, latency=16.04ms, complexity=medium.
+- Composite evidence score=0.9031 (ranking aid, not a published accuracy).
+
+## Rejected alternatives
+- Logistic Regression: lower composite evidence (score=0.7858 vs 0.9031); primary=0.3927, stability=0.805, latency=5.23ms
+- Random Forest: lower composite evidence (score=0.5872 vs 0.9031); primary=0.3645, stability=0.793, latency=16.54ms
+- HistGradientBoosting: lower composite evidence (score=0.4157 vs 0.9031); primary=0.3268, stability=0.853, latency=14.39ms
+
+## Tradeoffs
+- Extra Trees is faster (16.04ms vs 16.54ms) than Random Forest.
+
+## Final untouched test
+- metrics={'accuracy': 0.8, 'precision': 0.0, 'recall': 0.0, 'f1': 0.0, 'balanced_accuracy': 0.5, 'roc_auc': 0.84375, 'pr_auc': 0.6467276975897666, 'log_loss': 0.4427198063321553}
+- primary=0.6467
+- validation_primary=0.426731179625153
+- gap=-0.21999651796461356
+- n_rows=80
+
+## Assumptions
+- IID assumption treated as likely.
+- Validation strategy is stratified_kfold.
+
+## Limitations
+- Final test was isolated before modeling decisions and was scored once after selection.
+- Leakage analysis reports signals, not a leakage-free certificate.
+- 1 high-risk quality issue(s) remain in the decision record.
+- 1 high-risk leakage signal(s) should be reviewed before deployment.
+- Leakage findings are signals only; the dataset is not certified clean.
+
+## Production readiness
+- PASS model_loads: sklearn pipeline is present
+- PASS schema_available: 8 features recorded
+- PASS required_features_listed: feature roles recorded
+- PASS prediction_works: predicted 8 rows
+- PASS serialization_works: joblib round-trip of the pipeline succeeded
+- PASS reload_predict_matches: predictions match after reload
+- PASS missing_values_handled: imputation is inside the fitted pipeline
+- PASS unknown_categories_handled: encoders use handle_unknown ignore / encoded value
+- PASS dependencies_captured: artifact stores pipeline, schema, metrics, and decision record
+- PASS inference_latency_measured: latency recorded during evaluation
+
+
+C:\Users\VivekNookala\Desktop\test>  enable_hpo = true
+
+
+C:\Users\VivekNookala\Desktop\test>python try_mlverdict.py          
+DecisionStatus.DECIDED
+{'model': 'Logistic Regression', 'status': 'DECIDED', 'primary_metric': 'pr_auc', 'validation_score': 0.388086132698186, 'final_test_score': 0.6102151403877112, 'latency_ms': 6.907099999807542, 'stability': 0.8129010436856184, 'reasons': ['Selected Logistic Regression after hard-constraint filtering and multi-criteria ranking.', "Primary metric 'pr_auc' validation score=0.3881.", 'Stability=0.813, generalization=0.921, latency=6.91ms, complexity=low.', 'Composite evidence score=0.9402 (ranking aid, not a published accuracy).']}
+                  model   primary  stability  generalization  latency_ms complexity  passes_constraints  composite
+0   Logistic Regression  0.388086   0.812901        0.920674      6.9071        low                True   0.940175
+1           Extra Trees  0.381872   0.825654        0.617998     15.1148     medium                True   0.830998
+2         Random Forest  0.364519   0.793049        0.611441     25.4860     medium                True   0.692802
+3  HistGradientBoosting  0.326759   0.852614        0.599408     22.8756       high                True   0.414252
+# MLVerdict Report
+
+## Executive summary
+- MLVerdict status: **DECIDED**.
+- Selected model: **Logistic Regression**.
+- Primary metric **pr_auc** validation score: **0.3881**.
+- Untouched final-test {'accuracy': 0.825, 'precision': 0.75, 'recall': 0.1875, 'f1': 0.3, 'balanced_accuracy': 0.5859375, 'roc_auc': 0.8427734375, 'pr_auc': 0.6102151403877112, 'log_loss': 0.3880616118783975}.
+- Production readiness: **passed**.
+
+## Dataset DNA
+- rows=320, features=8, scale=small
+- target=churn kind=categorical cardinality=2
+- imbalance_ratio=4.079365079365079 missingness=none
+- iid=likely entity_hint=None time_hint=None
+- potential_ids=['customer_id']
+- high_cardinality=[]
+
+## Problem
+- type=binary_classification
+- confidence=high status=DECIDED override=False
+- target_dtype=int64
+- target_cardinality=2
+- unique_ratio=0.0063
+- imbalance_ratio=4.079
+- exactly two unique target values
+
+## Data quality
+- HIGH_RISK [potential_identifier] customer_id: Column 'customer_id' looks like an identifier. (unique_ratio=1.0000 n_unique=320)
+
+## Leakage signals
+_These are leakage *signals*, not a guarantee that the dataset is leakage-free._
+
+- HIGH_RISK [id_leakage] customer_id: 'customer_id' may leak identity rather than a generalizable pattern.
+- INFO [preprocessing_leakage_risk] -: Any transform fitted on the full dataset (or the final test) is a leakage path.
+
+## Validation
+- strategy=stratified_kfold splits=5
+- group_col=None time_col=None
+- scale=small
+- iid=likely
+- imbalance_ratio=4.079365079365079
+- problem=binary_classification
+- classification + no confirmed group/time
+- imbalanced=True
+
+## Metrics
+- primary=pr_auc (user_override=False)
+- secondary=['accuracy', 'f1', 'precision', 'recall', 'roc_auc', 'log_loss', 'pr_auc']
+- problem=binary_classification
+- imbalance_ratio=4.079365079365079
+- target_kind=categorical
+- imbalanced binary → pr_auc (accuracy would be misleading)
+
+## Candidates
+- Included: Logistic Regression
+- Included: Random Forest
+- Included: Extra Trees
+- Included: HistGradientBoosting
+- Excluded: Ridge: not applicable to classification
+- Excluded: XGBoost: library not installed
+- Excluded: LightGBM: library not installed
+- Excluded: CatBoost: library not installed
+
+## Experiments and HPO
+- Logistic Regression (baseline): mean=0.3881 std=0.0661 latency=6.91ms status=success
+- Random Forest (baseline): mean=0.3645 std=0.0770 latency=25.49ms status=success
+- Extra Trees (baseline): mean=0.3819 std=0.0662 latency=15.11ms status=success
+- HistGradientBoosting (baseline): mean=0.3268 std=0.0461 latency=22.88ms status=success
+
+## Evaluation (performance + stability + constraints)
+- Logistic Regression: primary=0.3881 stability=0.813 gap_score=0.921 latency=6.91ms constraints=pass composite=0.9402
+- Random Forest: primary=0.3645 stability=0.793 gap_score=0.611 latency=25.49ms constraints=pass composite=0.6928
+- Extra Trees: primary=0.3819 stability=0.826 gap_score=0.618 latency=15.11ms constraints=pass composite=0.8310
+- HistGradientBoosting: primary=0.3268 stability=0.853 gap_score=0.599 latency=22.88ms constraints=pass composite=0.4143
+
+## Selected model
+- Selected Logistic Regression after hard-constraint filtering and multi-criteria ranking.
+- Primary metric 'pr_auc' validation score=0.3881.
+- Stability=0.813, generalization=0.921, latency=6.91ms, complexity=low.
+- Composite evidence score=0.9402 (ranking aid, not a published accuracy).
+
+## Rejected alternatives
+- Extra Trees: lower composite evidence (score=0.8310 vs 0.9402); primary=0.3819, stability=0.826, latency=15.11ms
+- Random Forest: lower composite evidence (score=0.6928 vs 0.9402); primary=0.3645, stability=0.793, latency=25.49ms
+- HistGradientBoosting: lower composite evidence (score=0.4143 vs 0.9402); primary=0.3268, stability=0.853, latency=22.88ms
+
+## Tradeoffs
+- Logistic Regression is faster (6.91ms vs 25.49ms) than Random Forest.
+- Logistic Regression is faster (6.91ms vs 15.11ms) than Extra Trees.
+- Logistic Regression is faster (6.91ms vs 22.88ms) than HistGradientBoosting.
+
+## Final untouched test
+- metrics={'accuracy': 0.825, 'precision': 0.75, 'recall': 0.1875, 'f1': 0.3, 'balanced_accuracy': 0.5859375, 'roc_auc': 0.8427734375, 'pr_auc': 0.6102151403877112, 'log_loss': 0.3880616118783975}
+- primary=0.6102
+- validation_primary=0.388086132698186
+- gap=-0.2221290076895252
+- n_rows=80
+
+## Assumptions
+- IID assumption treated as likely.
+- Validation strategy is stratified_kfold.
+
+## Limitations
+- Final test was isolated before modeling decisions and was scored once after selection.
+- Leakage analysis reports signals, not a leakage-free certificate.
+- 1 high-risk quality issue(s) remain in the decision record.
+- 1 high-risk leakage signal(s) should be reviewed before deployment.
+- Leakage findings are signals only; the dataset is not certified clean.
+
+## Production readiness
+- PASS model_loads: sklearn pipeline is present
+- PASS schema_available: 8 features recorded
+- PASS required_features_listed: feature roles recorded
+- PASS prediction_works: predicted 8 rows
+- PASS serialization_works: joblib round-trip of the pipeline succeeded
+- PASS reload_predict_matches: predictions match after reload
+- PASS missing_values_handled: imputation is inside the fitted pipeline
+- PASS unknown_categories_handled: encoders use handle_unknown ignore / encoded value
+- PASS dependencies_captured: artifact stores pipeline, schema, metrics, and decision record
+- PASS inference_latency_measured: latency recorded during evaluation
+
+
+C:\Users\VivekNookala\Desktop\test>  enable_hype = false
